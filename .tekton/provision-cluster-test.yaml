@@ -119,8 +119,6 @@ spec:
       runAfter:
         - provision-cluster
       taskSpec:
-        params:
-          - name: SNAPSHOT
         results:
           - name: TEST_OUTPUT
             description: Test output
@@ -164,14 +162,8 @@ spec:
               oc get pods
               oc delete pod test-pod
           - image: registry.redhat.io/openshift4/ose-cli:latest
-            env:
-            - name: SNAPSHOT
-              value: $(params.SNAPSHOT)
             script: |
               dnf -y install jq
-              echo -e "Example test task for the Snapshot:\n ${SNAPSHOT}"
-              // Run custom tests for the given Snapshot here
-              // After the tests finish, record the overall result in the RESULT variable
               RESULT="SUCCESS"
 
               // Output the standardized TEST_OUTPUT result in JSON form
